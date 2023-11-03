@@ -22,6 +22,8 @@ public class Main {
         acceso.recorreDOMyMuestra();
         acceso.insertarLibroEnDOM("Astérix & Obélix", "Uderzo", "1959");
         acceso.recorreDOMyMuestra();
+        acceso.borrarLibro("Don Quijote");
+        acceso.recorreDOMyMuestra();
     }
     
 }

@@ -36,10 +36,11 @@ public class AccesoDOM {
             
             // ahora doc apunta al arbol DOM y podemos recorrerlo
             System.out.println("DOM creado con éxito.\n");
-            return 0;//si el método funciona
-        }catch(Exception e){
-            System.out.println(e);
-            return -1;//if the method aborta en algún punto
+            return 0;
+        }catch(Exception ex){
+            System.out.println("Error" +ex);
+            ex.printStackTrace();
+            return -1;
         }
     }
     
@@ -76,10 +77,9 @@ public class AccesoDOM {
     }
     
     public int insertarLibroEnDOM(String titulo, String autor, String publicado){
-        try{
-            System.out.println("Añadiendo libro al DOM con los datos: "+titulo
+        System.out.println("Añadiendo libro al DOM con los datos: "+titulo
             +"; "+autor+"; "+publicado);
-            
+        try{
             //crear nodo título
             Node nodeTitulo = doc.createElement("Titulo"); //crea la etiqueta <Titulo/> en sí
             Node nodeTitulo_text = doc.createTextNode(titulo); //añade el título a la etiqueta
@@ -103,6 +103,31 @@ public class AccesoDOM {
             
         } catch (Exception ex){
             System.out.println("Error: " +ex);
+            ex.printStackTrace();
+            return -1;
+        }
+    }
+    
+    public int borrarLibro(String titulo){
+        System.out.println("Se va a borrar el libro " + titulo + "...");
+        try {
+            //Node root = doc.getDocumentElement();
+            NodeList nlTitulo = doc.getElementsByTagName("Titulo"); //coge los nodos Titulo
+            Node node;
+            for (int i=0;i<nlTitulo.getLength();i++){
+                node = nlTitulo.item(i);
+                //if(node.getNodeType() == Node.ELEMENT_NODE){} innecesario por getElementsByTagName()
+                if(node.getChildNodes().item(0).getNodeValue().equals(titulo)){
+                    System.out.println("Borrando libro con título: " +titulo+ "...");
+                    //accedemos al parent node hasta llegar al root y borramos su hijo libro
+                    node.getParentNode().getParentNode().removeChild(node.getParentNode());
+                }
+            }
+            System.out.println("Libro borrado.\n");
+            return 0;
+        } catch (Exception ex){
+            System.out.println("Error: " +ex);
+            ex.printStackTrace();
             return -1;
         }
     }
