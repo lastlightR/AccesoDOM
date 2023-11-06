@@ -146,7 +146,7 @@ public class AccesoDOM {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             //propiedad para darle una sangría al archivo
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.transform(source, result);
+            transformer.transform(source, (javax.xml.transform.Result) result);
             
             System.out.println("Archivo creado con éxito.");
         } catch (Exception ex) {
