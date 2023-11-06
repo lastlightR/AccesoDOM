@@ -24,6 +24,7 @@ public class Main {
         acceso.recorreDOMyMuestra();
         acceso.borrarLibro("Don Quijote");
         acceso.recorreDOMyMuestra();
+        acceso.guardarDOMaArchivo("./LibrosDOM.xml");
     }
     
 }

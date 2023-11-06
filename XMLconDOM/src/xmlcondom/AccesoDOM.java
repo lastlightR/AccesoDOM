@@ -10,6 +10,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.util.*;
 import java.io.*;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 /**
  *
@@ -129,6 +135,23 @@ public class AccesoDOM {
             System.out.println("Error: " +ex);
             ex.printStackTrace();
             return -1;
+        }
+    }
+    
+    public void guardarDOMaArchivo (String archivo) {
+        try{
+            Source source = new DOMSource(doc); //origen
+            StreamResult result = new StreamResult (new File(archivo)); //destino
+            //declarando el Transformer con el método transform que vamos a usar
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            //propiedad para darle una sangría al archivo
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.transform(source, result);
+            
+            System.out.println("Archivo creado con éxito.");
+        } catch (Exception ex) {
+            System.out.println("Error: "+ex);
+            ex.printStackTrace();
         }
     }
     
