@@ -23,7 +23,7 @@ import javax.xml.transform.stream.StreamResult;
  */
 public class AccesoDOM {
     
-    Document doc;
+    Document doc; //creamos el documento que inicializaremos para que apunte al árbol DOM
     
     public int abrirXMLaDOM (File file){
         try{
@@ -50,7 +50,7 @@ public class AccesoDOM {
         }
     }
     
-    public void recorreDOMyMuestra(){
+    public void recorreDOMyMuestra(){ //función que muestra el árbol DOM por pantalla
         String[] data = new String[3]; //para la info de cada libro
         Node node = null;
         Node root = doc.getFirstChild();
@@ -82,7 +82,7 @@ public class AccesoDOM {
         System.out.println("");
     }
     
-    public int insertarLibroEnDOM(String titulo, String autor, String publicado){
+    public int insertarLibroEnDOM(String titulo, String autor, String publicado){ //función que añade un libro al DOM dados unos parámetros
         System.out.println("Añadiendo libro al DOM con los datos: "+titulo
             +"; "+autor+"; "+publicado);
         try{
@@ -114,7 +114,7 @@ public class AccesoDOM {
         }
     }
     
-    public int borrarLibro(String titulo){
+    public int borrarLibro(String titulo){ //elimina un libro del DOM por título
         System.out.println("Se va a borrar el libro " + titulo + "...");
         try {
             //Node root = doc.getDocumentElement();
@@ -138,7 +138,7 @@ public class AccesoDOM {
         }
     }
     
-    public void guardarDOMaArchivo (String archivo) {
+    public void guardarDOMaArchivo (String archivo) { //guarda el árbol DOM con sus cambios en un fichero
         try{
             Source source = new DOMSource(doc); //origen
             StreamResult result = new StreamResult (new File(archivo)); //destino
@@ -146,6 +146,7 @@ public class AccesoDOM {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             //propiedad para darle una sangría al archivo
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            //transform() utiliza el origen (árbol DOM) y destino establecidos
             transformer.transform(source, (javax.xml.transform.Result) result);
             
             System.out.println("Archivo creado con éxito.");
